@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToDo List</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #todo-container1{
+      width: 900px;
+      height: 350px;
+      background-color: rgb(216, 213, 213);
+    }
+    #todo-container2{
+      background-color: white;
+      width: 700px;
+      height: 200px;
+      margin-left: 100px;
+      margin-top: 80px;
+    }
+    #todo{
+      padding: 15px;
+      margin-left: 20px;
+      color: black;
+      font-size: 35px;
+      margin-top:10px;
+    }
+   
+    #task-input {
+      width: 70%;
+      padding: 8px;
+      margin-top: -10px;
+      margin-left: 30px;
+      padding: 10px;
+      box-sizing: border-box;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #task-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .task input[type="checkbox"] {
+      margin-right: 8px;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div id="todo-container1">
+    <div id="todo-container2">
+      <h1 id="todo">To-Do List</h1>
+      <input type="text" id="task-input" placeholder="Enter your task">
+      <button onclick="addTask()">Add Task</button>
+      <ul id="task-list"></ul>
+    </div>
+  
+  </div>
+  
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("task-input");
+      const taskText = taskInput.value.trim();
+      // Check task is Empty Show me a alert 
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const taskList = document.getElementById("task-list");
+
+      // Check if the task already exists
+      if (taskList.innerHTML.includes(taskText)) {
+        alert("Task already exists!");
+        return;
+      }
+
+      const taskItem = document.createElement("li");
+      taskItem.className = "task";
+      taskItem.innerHTML = `
+        <input type="checkbox" onchange="toggleTask(this)">
+        <span>${taskText}</span>
+      `;
+
+      taskList.appendChild(taskItem);
+      taskInput.value = ""; // Clear the input field
+    }
+
+    function toggleTask(checkbox) {
+      const taskItem = checkbox.parentNode;
+      taskItem.classList.toggle("completed", checkbox.checked);
+    }
+  </script>
+</body>
+</html>
